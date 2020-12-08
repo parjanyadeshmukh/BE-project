@@ -54,7 +54,7 @@ export function DrawerContent (props){
                         size={size}
                         />                 
                     )}
-                    label= "Meeting Bookmarks"
+                    label= "Meetings Scheduled"
                     onPress={() =>{navigation.navigate(screenNames.MEETING_BOOKMARKS)}}
                     />
                     <DrawerItem

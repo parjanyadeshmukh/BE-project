@@ -32,6 +32,7 @@ const Drawer=createDrawerNavigator();
 
 const HomeStackScreen=({navigation})=>(
   <HomeStack.Navigator >
+  
     <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerLeft:()=>(
       <Icon.Button name="ios-menu" size={25}
       backgroundColor="#455a64" onPress={() => {
