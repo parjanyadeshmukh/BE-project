@@ -13,9 +13,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import screenNames from './screenNames'
 
 export function DrawerContent (props){
+    const { navigation } = props
     return(
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props}> 
@@ -54,7 +55,7 @@ export function DrawerContent (props){
                         />                 
                     )}
                     label= "Meeting Bookmarks"
-                    onPress={() =>{props.navigation.navigate(BookmarkScreen)}}
+                    onPress={() =>{navigation.navigate(screenNames.MEETING_BOOKMARKS)}}
                     />
                     <DrawerItem
                     icon={({color,size}) => (
@@ -65,7 +66,7 @@ export function DrawerContent (props){
                         />                 
                     )}
                     label= "Employee Meetings"
-                    onPress={() =>{props.navigation.navigate(MeetingscheduleScreen)}}
+                    onPress={() =>{navigation.navigate(screenNames.SCHEDULE_MEETINGS)}}
                     />
                 </Drawer.Section>
             </DrawerContentScrollView>
