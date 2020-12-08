@@ -21,7 +21,7 @@ const VisitorCard = ({item}) => {
     <ScrollView>
     <View style={styles.cardView}>
     <SafeAreaView>
-      <Text style={styles.title}>Meeting Request</Text>
+      <Text style={styles.title}>Meeting Schedule</Text>
       <Text style={styles.subtitle}>{item.nameofv}</Text>
       <Text style={styles.description}>{item.timeofvisit}</Text>
       <Text style={styles.description}>{item.reasonofv}</Text>
