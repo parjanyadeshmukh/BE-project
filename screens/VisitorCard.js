@@ -25,6 +25,9 @@ const VisitorCard = ({item}) => {
       <Text style={styles.subtitle}>{item.nameofv}</Text>
       <Text style={styles.description}>{item.timeofvisit}</Text>
       <Text style={styles.description}>{item.reasonofv}</Text>
+      {/* <Text style={styles.subtitle}>Name of Visitor</Text>
+      <Text style={styles.description}>abdmmndn</Text>
+      <Text style={styles.description}>ksmhflgj</Text> */}
       
       <FlatButton text="Accept" />
       <FlatButton text="Decline"  /> 

@@ -22,7 +22,7 @@ import{
 } from 'react-native-paper';
 import BookmarkScreen from './screens/BookmarkScreen';
 import MeetingscheduleScreen from './screens/MeetingscheduleScreen';
-
+import screenNames from './screens/screenNames'
 const HomeStack=createStackNavigator();
 const Drawer=createDrawerNavigator();
 
@@ -57,9 +57,9 @@ const App=()=>{
   return(
       <NavigationContainer>
         <Drawer.Navigator drawerContent ={props => <DrawerContent { ...props} />}  >
-            <Drawer.Screen name="Home" component={HomeStackScreen} />
-            <Drawer.Screen name="Meeting Bookmarks" component={BookmarkScreen} />
-            <Drawer.Screen name="Schedule Meetings" component={MeetingscheduleScreen} />
+            <Drawer.Screen name= {screenNames.HOME} component={HomeStackScreen} />
+            <Drawer.Screen name= {screenNames.MEETING_BOOKMARKS} component={BookmarkScreen} />
+            <Drawer.Screen name={screenNames.SCHEDULE_MEETINGS} component={MeetingscheduleScreen} />
          </Drawer.Navigator>
        </NavigationContainer>
 

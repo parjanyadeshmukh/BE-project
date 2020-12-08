@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import{
   StyleSheet,Text,View,Button,ScrollView,FlatList
 } from "react-native";
@@ -10,38 +10,38 @@ import VisitorCard  from "./VisitorCard";
 import newAPI from './fetchapi';
 
 
-const DataFetching=({navigaton}) =>{
 
-  const[ posts, setPosts]=useState([])
-
-
-  useEffect(()=> {
-    getDatafromApi()
-  },[])
 
   // const NewResponse=async() =>{
   //   const response=await newAPI.get('')
   //   console.log(response.data)
   // }
-  function getDatafromApi(){
-    .then(function(response)){
-      newAPI.get('1b4defb08b58b7d34e5bdcd5716b5d44-us7')
-      .then(function(response){
-        setPosts(response.data);
-      })
-      .catch(function(error){
-        console.log(error)
-      })        
-}
-if (!posts){
-  return null
-}
+//   function getDatafromApi(){
+//     .then(function(response)){
+//       newAPI.get('1b4defb08b58b7d34e5bdcd5716b5d44-us7')
+//       .then(function(response){
+//         setPosts(response.data);
+//       })
+//       .catch(function(error){
+//         console.log(error)
+//       })        
+// }
+//   }
+// if (!posts){
+//   return null
+// }
 
 
 
 const HomeScreen=()=>{
 
   
+    const[ posts, setPosts]=useState([])
+  
+  
+    // useEffect(()=> {
+    //   getDatafromApi()
+    // },[])
     return( 
       // <View style={styles.container}>
       <View style={styles.container1}>
@@ -57,6 +57,7 @@ const HomeScreen=()=>{
               return <VisitorCard item ={item} />
             }}
             />
+  
         </View>
       </View>
     );
