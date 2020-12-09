@@ -61,7 +61,7 @@ export function DrawerContent (props){
                     icon={({color,size}) => (
                         <Icon 
                         name="calendar"
-                        color={color}
+                        color={color} 
                         size={size}
                         />                 
                     )}
@@ -80,7 +80,7 @@ export function DrawerContent (props){
                         />                 
                     )}
                     label="Sign Out"
-                    onPress={() => {}}
+                    onPress={() => {navigation.navigate('Home page')}}
                     />
             </Drawer.Section>
         

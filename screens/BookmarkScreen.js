@@ -1,19 +1,29 @@
 import React from "react";
 import{
-  StyleSheet,Text,View,Button
+  StyleSheet,Text,View,Button,TouchableOpacity
 } from "react-native";
 import 'react-native-gesture-handler';
+import {useNavigation} from "@react-navigation/native";
 
-
-const BookmarkScreen=()=>{ 
+const BookmarkScreen=()=>
+{
+  const navigation = useNavigation() 
     return(
       <View style={styles.container}>
         <Text style={styles.text1}>
         List Of Meetings Scheduled
         </Text>
+
+      <TouchableOpacity
+        onPress = {() => {navigation.goBack()}}>
+        <Text>
+          Back
+        </Text>
+      </TouchableOpacity>
+
       </View>
     )
-    };
+};
   
   export default BookmarkScreen;
 
