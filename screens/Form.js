@@ -1,5 +1,5 @@
-//  import React, {Component} from 'react';
-import React from 'react'
+
+import React,{useState} from 'react'
 import {
   StyleSheet,
   View,
@@ -8,42 +8,49 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-// import { } from 'react-navigation';
-// import { createStackNavigator } from 'react-navigation-stack';
-//import Login from '../pages/Login';
-//import Signup from '../pages/Signup';
 
-//  export default class  extends Component<{}>
+
+
 export default function Form(props)
 {
-    // const { navigation } = props
- //     render() {
+    const [email,setEmail]=useState('')
+    const [password,setPassword]=useState('')
+
+    // const submitCred=() =>{
+
+
+    // }
         return(
             <View style = {styles.container}>
                 <TextInput style = {styles.inputbox}
+                    value={email}
+                    onChangeText={setEmail}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholder = "Email ID"
                     placeholderTextColor = "#000000"
                     returnKeyType = "next"
- //                   onSubmitEditing = {() => this.passwordInput.focus() }
+
                     keyboardType = "email-address"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                    
                 />
                 <TextInput style = {styles.inputbox}
+                    value={password}
+                    onChangeText={setPassword}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholder="Password"
                     returnKeyType = "go"
                     secureTextEntry={true}
- //                   ref = {(input) => this.passwordInput =input }
+
                     placeholderTextColor="#000000"
                 />
 
                 <TouchableOpacity 
                     style = {styles.button}
-                    onPress = {() => {props.navigation.navigate("HomeScreen")}}   >
-                    <Text style ={styles.buttontext}>Login</Text>
+                    // onPress = {submitCred} 
+                      >
+                    <Text style ={styles.buttontext} >Login</Text>
                 </TouchableOpacity>
                 
             </View>
