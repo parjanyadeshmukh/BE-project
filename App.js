@@ -28,11 +28,12 @@ import{
 } from 'react-native-paper';
 import BookmarkScreen from './screens/BookmarkScreen';
 import MeetingscheduleScreen from './screens/MeetingscheduleScreen';
-import screenNames from './screens/screenNames'
-
+import screenNames from './screens/screenNames';
+import HomeScreenLogin from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen'
 // Yojal's important imports
-import Form from './screens/Form';
-import Formsignup from './screens/Formsignup';
+
+
 
 
 const HomeStack=createStackNavigator();
@@ -40,68 +41,10 @@ const Drawer=createDrawerNavigator();
 
 
 //Yojal's functions
-const HomeScreenLogin = ({navigation}) =>
-  {
-     return(
-       <View style={styles.container}>
-       {/* <Logo/> */}
-             <Image style = {{width:90, height:80}}
-                source = {require('./screens/logo.png')} />
-            <Text style = {styles.logoText}>Visitor Management System</Text>
-
-        <Form navigation={navigation}/>
-
-       {/* <Login/> */}
-         {/* <StatusBar
-          backgroundColor="#1c313a" 
-          barStyle="light-content"
-         /> */}
-
-         <View style = {styles.signupTextContent}>
-            <Text style = {styles.signuptext}>Don't have an account? </Text>
-            <Text style = {styles.signupbutton}
-               onPress={() => navigation.navigate("Sign up")}>
-                Sign up
-              </Text>
-         </View>
-
-         {/* <Button style={styles.button1}
-           title = "goto signup page"
-           onPress={() => navigation.navigate("Sign up")}  
-         /> */}
-       </View>
-    );
-   // }
- }
 
 
- const SignupScreen = ({navigation}) =>
-  {
-     return(
-       <View style={styles.container}>
-       {/* <Signup/> */}
-        {/* <Logo/> */}
-             <Image style = {{width:90, height:80}}
-                source = {require('./screens/logo.png')} />
-            <Text style = {styles.logoText}>Visitor Management System</Text>
-        <Formsignup navigation={navigation}/>
-         {/* <StatusBar
-          backgroundColor="#1c313a" 
-          barStyle="light-content"
-         /> */}
-         <View style = {styles.signupTextContent}>
-            <Text style = {styles.signuptext}>Already have an account? </Text>
-            <Text 
-                style = {styles.signupbutton}
-                onPress={() => navigation.goBack()} >
-                  Sign in
-            </Text>
-         </View> 
-         
-       </View>
-    );
- }
 
+ 
 
 const HomeStackScreen=({navigation})=>(
   <HomeStack.Navigator >
@@ -141,46 +84,6 @@ const App=()=>{
 
 
 //Yojal's CSS
-const styles = StyleSheet.create({
-  container : {
-    backgroundColor: '#455a64',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  button1 : {
-    paddingBottom : 80
-  },
-
-  logoText : {
-    marginVertical : 1,
-    fontSize : 18,
-    color : 'rgba(255, 255, 255, 0.7)'
-  },
-
-  signupTextContent : {
-    flexGrow : 1,
-    fontSize : 18,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingVertical : 90,
-    flexDirection : 'row'
-  },
-
-  signuptext : {
-    fontSize : 18,
-    color : 'rgba(255,255,255,0.6)',
-    alignItems: 'center'
-  },
-
-  signupbutton : {
-    color : '#ffffff',
-    fontSize : 18,
-   fontWeight : '500'
-  }
-
-});
 
 
 

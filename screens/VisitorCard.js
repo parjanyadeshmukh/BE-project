@@ -22,9 +22,9 @@ const VisitorCard = ({item}) => {
     <View style={styles.cardView}>
     <SafeAreaView>
       <Text style={styles.title}>Meeting Request</Text>
-      <Text style={styles.subtitle}>{item.nameofv}</Text>
-      <Text style={styles.description}>{item.timeofvisit}</Text>
-      <Text style={styles.description}>{item.reasonofv}</Text>
+      <Text style={styles.subtitle}>{item.id}</Text>
+      <Text style={styles.description}>{item.userId}</Text>
+      <Text style={styles.description}>{item.title}</Text>
       {/* <Text style={styles.subtitle}>Name of Visitor</Text>
       <Text style={styles.description}>abdmmndn</Text>
       <Text style={styles.description}>ksmhflgj</Text> */}
