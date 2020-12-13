@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import{
   StyleSheet,View,Button,Text
 } from "react-native";
@@ -13,10 +13,27 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import screenNames from './screenNames'
+import screenNames from './screenNames';
+import {getUserDetails,clearAsyncStorage} from './helper';
+
+
 
 export function DrawerContent (props){
     const { navigation } = props
+    const[data,setData]=useState({})
+    useEffect(()=>{
+        getUserData();
+    },[data])
+    const getUserData=async()=>{
+        const employeedata=await getUserDetails();
+        
+        setData(JSON.parse(employeedata))
+        
+        
+    }
+    const handleLogout =()=>{
+      navigation.navigate('auth')
+    }
     return(
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props}> 
@@ -29,8 +46,10 @@ export function DrawerContent (props){
                        />
                    </View> */}
                    <View style={{marginLeft:15 ,flexDirection:'column'}}>
-                       <Title style={styles.title}>Parjanya Deshmukh</Title>
-                       <Caption style={styles.caption}>Employee_Id</Caption>
+                       {/* <Title style={styles.title} >Parjanya</Title> */}
+                       {data.empname? <Title style = {styles.title}>{data.empname}</Title>:null}
+                       <Caption style={styles.caption}>Employee_Id :</Caption>
+                       {data.empid? <Caption style = {styles.caption}>{data.empid}</Caption>:null}
                    </View>
                </View>
             </View>
@@ -80,7 +99,7 @@ export function DrawerContent (props){
                         />                 
                     )}
                     label="Sign Out"
-                    onPress={() => {navigation.navigate('Home page')}}
+                    onPress={handleLogout}
                     />
             </Drawer.Section>
         

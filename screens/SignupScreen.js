@@ -28,6 +28,7 @@ const SignupScreen = ({navigation}) =>
           backgroundColor="#1c313a" 
           barStyle="light-content"
          /> */}
+         <View style = {{flexDirection:'row', marginTop:22}}></View>
          <View style = {styles.signupTextContent}>
          {message?<Text style={styles.signuptext}>{message}</Text>:null}
             <Text 
@@ -44,7 +45,8 @@ const SignupScreen = ({navigation}) =>
 
  const styles = StyleSheet.create({
     container : {
-      backgroundColor: '#455a64',
+      
+      backgroundColor: '#1f6f8b',
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center'
@@ -57,15 +59,15 @@ const SignupScreen = ({navigation}) =>
     logoText : {
       marginVertical : 1,
       fontSize : 18,
-      color : 'rgba(255, 255, 255, 0.7)'
+      color : 'rgba(255, 255, 255, 0.9)',
+      
     },
   
     signupTextContent : {
-      flexGrow : 1,
-      fontSize : 18,
+     
+      fontSize : 20,
       alignItems: 'flex-end',
       justifyContent: 'center',
-      paddingVertical : 90,
       flexDirection : 'row'
     },
   
@@ -78,7 +80,8 @@ const SignupScreen = ({navigation}) =>
     signupbutton : {
       color : '#ffffff',
       fontSize : 13,
-     fontWeight : '500'
+     
+    //  padding:10
     }
   
   });

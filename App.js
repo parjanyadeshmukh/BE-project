@@ -1,5 +1,5 @@
 
-import React from "react";
+import React,{useState,useEffect} from "react";
 import{
   StyleSheet,
   Text,
@@ -31,51 +31,86 @@ import MeetingscheduleScreen from './screens/MeetingscheduleScreen';
 import screenNames from './screens/screenNames';
 import HomeScreenLogin from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen'
-// Yojal's important imports
+import {  isEmpty,  } from 'lodash';
+import {getUserDetails} from './screens/helper'
 
 
 
-
-const HomeStack=createStackNavigator();
+const Stack=createStackNavigator();
 const Drawer=createDrawerNavigator();
+const AuthStack=createStackNavigator();
 
 
-//Yojal's functions
+// const getStackscreens=(empdata)=> {
+//   if(isEmpty(empdata)){
+//     return(
 
+    
+//       <Stack.Screen name="Auth" component={AuthStackScreen} />
+//   )}
+//   else{
+//     return(
+//     <Stack.Screen name= {screenNames.HOME} component={HomeStackScreen} />
+//     )}
+ 
+// }
 
+const AuthStackScreen =()=>{
+  return(
+  <AuthStack.Navigator screenOptions={{headerShown:false}}>
+    <AuthStack.Screen name="Home page" component={HomeScreenLogin} />
+      <AuthStack.Screen name="Sign up" component={SignupScreen} />
+      {/* <AuthStack.Screen name="HomeScreen" component={HomeScreen} /> */}
+      <AuthStack.Screen name={screenNames.HOME} component={HomeStackScreen} />
+  </AuthStack.Navigator>
+)}
 
  
 
-const HomeStackScreen=({navigation})=>(
-  <HomeStack.Navigator >
-
-      <HomeStack.Screen name="Home page" component={HomeScreenLogin} />
-      <HomeStack.Screen name="Sign up" component={SignupScreen} />
-
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerLeft:()=>(
-        <Icon.Button name="ios-menu" size={25}
-            backgroundColor="#455a64" onPress={() => {
-        return navigation.openDrawer();
-        }}>        
-        </Icon.Button>
-    )
-     }} />
-     {/* <HomeStack.Screen name="Toptabs" component={TopTab}  /> */}
-  </HomeStack.Navigator>
-)
+// const HomeStackScreen=({navigation})=>(
+//   <Drawer.Navigator drawerContent ={props => <DrawerContent { ...props} />} >
+// <Drawer.Screen name="HomeScreen" component={HomeScreen} options={{ headerLeft:()=>(
+//         <Icon.Button name="ios-menu" size={25}
+//             backgroundColor="#455a64" onPress={() => {
+//         return navigation.openDrawer();
+//         }}>        
+//         </Icon.Button>
+//     )
+//      }} />
+//       <Drawer.Screen name= {screenNames.MEETING_BOOKMARKS} component={BookmarkScreen} />
+//        <Drawer.Screen name={screenNames.SCHEDULE_MEETINGS} component={MeetingscheduleScreen} />
+//        <Drawer.Screen name="auth" component={AuthStackScreen} />
+     
+//   </Drawer.Navigator>
+// )
 
 
 
 
 
 const App=()=>{
-  return(
+ return(
       <NavigationContainer>
-        <Drawer.Navigator drawerContent ={props => <DrawerContent { ...props} />}  >
-            <Drawer.Screen name= {screenNames.HOME} component={HomeStackScreen} />
-            <Drawer.Screen name= {screenNames.MEETING_BOOKMARKS} component={BookmarkScreen} />
-            <Drawer.Screen name={screenNames.SCHEDULE_MEETINGS} component={MeetingscheduleScreen} />
-         </Drawer.Navigator>
+
+<Drawer.Navigator drawerContent ={props => <DrawerContent { ...props} />} >
+<Drawer.Screen name="Home page" component={HomeScreenLogin} />
+      <Drawer.Screen name="Sign up" component={SignupScreen}/>
+<Drawer.Screen name="HomeScreen" component={HomeScreen} 
+     />
+      <Drawer.Screen name= {screenNames.MEETING_BOOKMARKS} component={BookmarkScreen} />
+       <Drawer.Screen name={screenNames.SCHEDULE_MEETINGS} component={MeetingscheduleScreen} />
+       
+       {/* <Drawer.Screen name="auth" component={AuthStackScreen} /> */}
+     
+  </Drawer.Navigator>
+        {/* <Stack.Navigator screenOptions={{headerShown:false}}  >
+        <Stack.Screen name = "auth" component={AuthStackScreen}/>
+        <Stack.Screen name = {screenNames.HOME} component={HomeStackScreen}/>
+
+      
+         
+           
+         </Stack.Navigator> */}
        </NavigationContainer>
 
   )
@@ -83,7 +118,7 @@ const App=()=>{
 
 
 
-//Yojal's CSS
+
 
 
 

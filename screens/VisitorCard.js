@@ -1,48 +1,82 @@
-import React from "react";
+import React,{useState} from "react";
 import{
   StyleSheet,Text,View,Button,TouchableOpacity,Dimensions,SafeAreaView,ScrollView
 } from "react-native";
-
+import axios from 'axios';
 
 const {width,height}= Dimensions.get('window')
 
-function FlatButton({text,onPress}){
-  return(
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>{text}</Text>
-      </View>
-    </TouchableOpacity>
-  )
-}
+const VisitorCard = ({item,employeeData,fromHomePage}) => {
+  const time = item.timeofvisit.split(0,9)
 
-const VisitorCard = ({item}) => {
-  return(
-    <ScrollView>
-    <View style={styles.cardView}>
-    <SafeAreaView>
-      <Text style={styles.title}>Meeting Request</Text>
-      <Text style={styles.subtitle}>{item.id}</Text>
-      <Text style={styles.description}>{item.userId}</Text>
-      <Text style={styles.description}>{item.title}</Text>
-      {/* <Text style={styles.subtitle}>Name of Visitor</Text>
-      <Text style={styles.description}>abdmmndn</Text>
-      <Text style={styles.description}>ksmhflgj</Text> */}
-      
-      <FlatButton text="Accept" />
-      <FlatButton text="Decline"  /> 
-      
-      
-      </SafeAreaView>
+
+  const acceptanddeclineAPI = async(visitorstatus)=>{
+    alert('called-api')
+    try {
+      const payload = {
+        empname:employeeData.empname,
+        visitorname : item.nameofv,
+        val:visitorstatus
+      }
+      console.log(payload,'payload-accept-decline')
+const res = axios.post('http://192.168.43.194:3000/acceptdecline', payload)
+return res
+    }
+catch(err)
+{
+  return err
+}
+    
+  }
+  const acceptanddecline = async(value)=>{
+   const response= await acceptanddeclineAPI(value)
+   alert(JSON.stringify(response))
+   console.log(response,'res-accept-decline')
+
+  }
+  const scheduleDayFinal = item.scheduleday[4]+item.scheduleday[5]+item.scheduleday[6]+item.scheduleday[7]+item.scheduleday[8]+item.scheduleday[9]+item.scheduleday[3]+item.scheduleday[0]+item.scheduleday[1]+item.scheduleday[2]
+  const timeOVisitFinal = item.timeofvisit[11]+item.timeofvisit[12]+item.timeofvisit[13]+item.timeofvisit[14]+item.timeofvisit[15]
+  
+  const renderAcceptedMeetingsData=()=>{
+    
+  }
+  
+  const renderHomePagedata=()=>{
+    return (
+<View style={styles.cardView}>
+    
+    <Text style={styles.title}>Meeting Requested by {item.nameofv} </Text>
+   <Text style={styles.description}>Reason of Visit : {item.reasonofvisit}</Text>
+   <View style = {{flexDirection:'row'}}>
+    <Text style={styles.description}>{scheduleDayFinal }</Text>
+    <Text style={styles.description}>{timeOVisitFinal }</Text>
     </View>
-    </ScrollView>
+    <View style = {{ flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+     <TouchableOpacity style = {styles.button} onPress={()=>acceptanddecline('1')}>
+    <Text style={styles.buttonTextAccept}>Accept</Text>
+  </TouchableOpacity>
+  <TouchableOpacity style = {styles.button} onPress={()=>acceptanddecline('0')}>
+    <Text style={styles.buttonTextDecline}>Decline</Text>
+  </TouchableOpacity>
+    </View>
+
+  </View>
+    )
+    
+  }
+  
+  return(
+    fromHomePage ?
+renderHomePagedata():renderAcceptedMeetingsData()
+    
+   
   )
 }
 
 
 const styles=StyleSheet.create({
   cardView:{
-    backgroundColor:'#fff',
+    backgroundColor:'#fff3e2',
     margin:15,
     borderRadius:15,
     shadowColor:'#000',
@@ -52,46 +86,40 @@ const styles=StyleSheet.create({
   },
   title:{
     width:width,
-    margin:width*0.05,
+    margin:12,
+    
     color:'black',
-    fontSize:20,
+    fontSize:14,
     fontWeight:'bold'
    
-  },
-  subtitle:{
-    flexDirection: 'row',
-    width:width,
-    color:'black',
-    margin:width*0.05,
-    fontSize:18,
-    // paddingBottom:15
   },
   description:{
     flexDirection: 'row',
     color:'black',
-    width:width,
-    margin:width*0.05,
-    fontSize:17,
-    // paddingBottom:15
+    fontSize:14,
+    marginBottom:12,
+    marginLeft:12,
+ 
   },
  
   button:{
-    padding:10,
-    borderRadius:5,
-    // borderVertical:14,
-    // borderHorizontal:10,
-    backgroundColor:"#303f46",
-    marginHorizontal:30,
-    marginBottom:10
+marginBottom:10,
+ justifyContent:'space-around',
+ alignItems:'center',
+ marginRight:5,
     
       
   },
-  buttonText:{
-    color:"#fffff4",
-    fontSize:20,
-    fontWeight:'bold',
-    alignContent:'center',
-    textAlign:'center'
+  buttonTextAccept:{
+    color:"green",
+    paddingHorizontal:80,
+  
+    
+  },
+  buttonTextDecline:{
+    color:"red",
+    paddingHorizontal:80,
+  
     
   }
 })

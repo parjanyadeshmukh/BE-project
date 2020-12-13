@@ -44,27 +44,29 @@ import newAPI from './fetchapi';
 
 
 
-const DataFetching=({navigaton}) =>{
+// const DataFetching=({navigaton}) =>{
 
-  useEffect(()=> {
-    getDatafromApi()
-  },[])
+//   useEffect(()=> {
+//     getDatafromApi()
+//   },[])
 
-  // const NewResponse=async() =>{
-  //   const response=await newAPI.get('')
-  //   console.log(response.data)
-  // }
-  function getDatafromApi(){
-    .then(function(response)){
-      newAPI.get("http://localhost:3000/getappointments")
-      .then(function(response){
-        console.log(response.data)
-      })
-      .catch(function(error){
-        console.log(error)
-      })
-      
-    
-  
-}
+//   // const NewResponse=async() =>{
+//   //   const response=await newAPI.get('')
+//   //   console.log(response.data)
+//   // }
+//   function getDatafromApi() => {
+//     .then(function(response)){
+//       newAPI.get('1b4defb08b58b7d34e5bdcd5716b5d44-us7')
+//       .then(function(response)){
+//         setPosts(response.data);
+//       })
+//       .catch(function(error)){
+//         console.log(error)
+//       })        
+// }
+//   }
+// if (!posts){
+//   return null
+// }
+
 

@@ -6,7 +6,7 @@ import{
 
 
 
-export default axios.create({
-    baseURL:"https://us7.admin.mailchimp.com/"
-  })
+// export default axios.create({
+//     baseURL:"http://localhost:3000/getappointments"
+//   })
   

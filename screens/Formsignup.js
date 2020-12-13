@@ -33,7 +33,7 @@ export default function Formsignup(props)
         }
        
         try{
-         const res=await axios.post("http://192.168.43.139:3000/signup",payload)
+         const res=await axios.post("http://192.168.43.194:3000/signup",payload)
             // console.log(res.status,'res')
            return res
         }
@@ -73,7 +73,9 @@ export default function Formsignup(props)
                     onChangeText={setName}
                     placeholder="Full Name"
                     returnKeyType="next"
-                    placeholderTextColor="#000000"
+                    placeholderTextColor="white"
+                    autoCapitalize="none"
+
                 />
                 <TextInput style = {styles.inputbox}
                     underlineColorAndroid='rgba(0,0,0,0)'
@@ -81,7 +83,8 @@ export default function Formsignup(props)
                     onChangeText={setEmail}
                     placeholder="Email"
                     returnKeyType="next"
-                    placeholderTextColor="#000000"
+                    placeholderTextColor="white"
+                    autoCapitalize="none"
                 />
                 <TextInput style = {styles.inputbox}
                     underlineColorAndroid='rgba(0,0,0,0)'
@@ -90,7 +93,8 @@ export default function Formsignup(props)
                     placeholder="Password"
                     secureTextEntry
                     returnKeyType="next"
-                    placeholderTextColor="#000000"
+                    placeholderTextColor="white"
+                    autoCapitalize="none"
                 />
                 <TextInput style = {styles.inputbox}
                     underlineColorAndroid='rgba(0,0,0,0)'
@@ -99,7 +103,8 @@ export default function Formsignup(props)
                     placeholder="Re-enter Password"
                     secureTextEntry
                     returnKeyType="next"
-                    placeholderTextColor="#000000"
+                    placeholderTextColor="white"
+                    autoCapitalize="none"
                 />
                 
                 <TouchableOpacity 
@@ -117,7 +122,7 @@ export default function Formsignup(props)
 
 const styles = StyleSheet.create({
     container : {
-      flexGrow: 1,
+    //   flexGrow: 1,
       alignItems: 'center',
       justifyContent: 'center'
     },
@@ -129,21 +134,23 @@ const styles = StyleSheet.create({
         paddingHorizontal : 20,
         color : "#000000",
         fontSize : 16,
-        marginVertical : 10
+        marginVertical : 10,
+        color:"white"
     },
 
     button : {
-        width : 150,
-        backgroundColor : '#1c313a',
-        borderRadius : 25,
-        marginVertical : 10,
-        paddingVertical : 13
+        width : 100,
+        backgroundColor : '#fff3e2',
+        borderRadius : 8,
+        alignSelf:'center',
+        marginTop:15,
+        paddingVertical:6
     },
 
     buttontext : {
         fontSize : 16,
-        fontWeight : '500',
-        color : '#ffffff',
+        fontWeight : 'bold',
+        color : 'black',
         textAlign : 'center'
     }
 });

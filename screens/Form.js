@@ -8,18 +8,71 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-
+import {emailRegex} from './helper';
+import axios from 'axios';
+import { get } from 'lodash';
+import {setUserDetailsInStorage} from './helper';
+import screenNames from './screenNames';
 
 
 export default function Form(props)
 {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
+    const [message,setMessage]=useState('')
+    const displayMessages={
+        validEmail:'Please enter a valid email address',
+        validPassword:'Password should be atleast 6 characters'
+    }
+    const {navigation}=props
+    
+      
 
-    // const submitCred=() =>{
+        const loginAPi = async()=>{
+            const payload={
+                'email':email,
+               'password': password
+            }
+            try {
+                const res = await axios.post('http://192.168.43.194:3000/login',payload)
+               
+                return res
+            }
+            catch(err){
+                return err
+            }
+        }
 
 
-    // }
+   
+    const submitCred=async()=>{
+        if(email && !emailRegex.test(email)){
+
+            setMessage(displayMessages.validEmail)
+        }
+        if(password && password.length<6){
+            setMessage(displayMessages.validPassword)
+        }
+        else
+        {
+            const response=await loginAPi()
+            console.log(response.data)
+            const isSuccess = get(response, 'data.isSuccess','');
+            if(isSuccess){
+             navigation.navigate("HomeScreen",{
+                 empdata:response.data
+             })
+                
+                
+                
+            }
+        }
+    }
+    const setUser=async(empdata)=>{
+        const stringifiedData=JSON.stringify(empdata)
+        await setUserDetailsInStorage(stringifiedData);
+        
+      }
         return(
             <View style = {styles.container}>
                 <TextInput style = {styles.inputbox}
@@ -27,9 +80,9 @@ export default function Form(props)
                     onChangeText={setEmail}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholder = "Email ID"
-                    placeholderTextColor = "#000000"
+                    placeholderTextColor = "white"
                     returnKeyType = "next"
-
+                    
                     keyboardType = "email-address"
                     autoCapitalize = "none"
                     autoCorrect = {false}
@@ -41,14 +94,14 @@ export default function Form(props)
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholder="Password"
                     returnKeyType = "go"
-                    secureTextEntry={true}
+                    secureTextEntry
 
-                    placeholderTextColor="#000000"
+                    placeholderTextColor="white"
                 />
 
                 <TouchableOpacity 
                     style = {styles.button}
-                    // onPress = {submitCred} 
+                     onPress = {submitCred} 
                       >
                     <Text style ={styles.buttontext} >Login</Text>
                 </TouchableOpacity>
@@ -59,36 +112,38 @@ export default function Form(props)
 }
 
 const styles = StyleSheet.create({
-    container : {
-        marginVertical : 10,
-        flexGrow: 0.3,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+    // container : {
+       
+       
+    //     alignItems: 'center',
+    //     justifyContent: 'center'
+    // },
 
     inputbox : {
         width : 300,
         backgroundColor : 'rgba(255, 255, 255, 0.3)',
         borderRadius : 25,
         paddingHorizontal : 20,
-        color : "#000000",
+        color:"white",
         fontSize : 17,
         marginVertical : 10
     },
 
     button : {
-        width : 150,
-        backgroundColor : '#1c313a',
-        borderRadius : 25,
-        marginVertical : 10,
-        paddingVertical : 13
+        width : 100,
+        backgroundColor : '#fff3e2',
+        borderRadius : 8,
+        alignSelf:'center',
+        marginTop:15,
+        paddingVertical:6
     },
 
     buttontext : {
         fontSize : 16,
         fontWeight : '500',
-        color : '#ffffff',
-        textAlign : 'center'
+        color : '#000000',
+        textAlign : 'center',
+        fontWeight:'bold'
     }
 });
 
