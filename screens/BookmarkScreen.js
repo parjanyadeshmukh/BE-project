@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from "react";
 import{
-  StyleSheet,Text,TextInput,View,Button,TouchableOpacity,Dimensions,SafeAreaView,ScrollView
+  StyleSheet,Text,TextInput,View,Button,TouchableOpacity,Dimensions,SafeAreaView,ScrollView,FlatList
 } from "react-native";
 import 'react-native-gesture-handler';
 import {useNavigation,useIsFocused} from "@react-navigation/native";
-import {getUserDetails,clearAsyncStorage} from './helper';
+import {getUserDetails,clearAsyncStorage,getAcceptedAppointmentsAPI} from './helper';
 import axios from 'axios';
-
+import Icon from 'react-native-vector-icons/AntDesign';
+import VisitorCard  from "./VisitorCard";
 
 const {width,height}= Dimensions.get('window')
 
@@ -28,40 +29,42 @@ const BookmarkScreen=()=>
   const isFocused = useIsFocused()
 
 const[acceptedAppointments,setacceptedAppointments]=useState([])
+const [userData,setUserData] = useState({})
 
 useEffect(()=>{
-  getAcceptedAppointments();
+  functionGetUser()
+ 
 },[isFocused])
 
-
-const getAcceptedAppointmentsAPI=async(data)=>
-{
-  try{
-    const payload={
-      empid:data.empid
-    }
-    console.log(payload,'payload')
-  const res=axios.post('http://192.168.43.194:3000/acceptedappointments', payload)
-  return res
-  }
-  catch(err)
-  {
-    return err
-  }
-  
-}
-const getAcceptedAppointments=async()=>{
+const functionGetUser = async()=>{
   const employeedata=await getUserDetails();
-  const data = JSON.parse(employeedata)
-  const response=await getAcceptedAppointmentsAPI(data)
+  setUserData(JSON.parse(employeedata))
+  getAcceptedAppointments();
+}
+
+const getAcceptedAppointments=async()=>{
+ 
+  const response=await getAcceptedAppointmentsAPI(userData)
     setacceptedAppointments(response.data)
     console.log(response.data,'res-get-acceptedappointments')
 }
   const navigation = useNavigation();
+    // const {navigation}=props
     return(
       <View style={styles.container}>
-      <Text styles={styles.text1}>Accepted Meetings</Text>
-
+      <View style = {{flexDirection:"row", marginTop:15}}>
+      <Icon name="menuunfold" onPress={()=>navigation.openDrawer()} size={24} color={'white'} style = {{marginLeft:7, marginTop:3}}/>
+      <Text style={{color:'white' , fontSize:20 , fontWeight:'bold' ,marginLeft:30 , width:400 , marginTop:3 }}>Accepted Meetings</Text>
+      </View>
+      {acceptedAppointments.length>0 ? 
+       
+       <FlatList data={acceptedAppointments}
+       keyExtractor={(item,index) => 'key' + index }
+       renderItem = {({item}) => {
+         return <VisitorCard item ={item}  fromHomePage={false} employeeData={userData} setacceptedAppointments={setacceptedAppointments} />
+       }}
+       /> : 
+       <Text style={styles.text2}>No meetings confirmed </Text>}
       </View>
     )
 };
@@ -70,19 +73,17 @@ const getAcceptedAppointments=async()=>{
 
 const styles=StyleSheet.create({
     container:{
-        // flex:1,
-        alignItems:'center',
+        flex:1,
+        // alignItems:'center',
         backgroundColor:'#1f6f8b' 
         
     },
-    text1:{
-      color:"white",
-      fontSize:35,
-      fontWeight:'bold',
+    text2:{
+      color:'white',
       textAlign:'center',
-      
-    },
+      fontSize:24
 
+    }
     
 })
 export default BookmarkScreen;

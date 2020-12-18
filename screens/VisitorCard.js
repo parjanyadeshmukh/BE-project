@@ -3,23 +3,28 @@ import{
   StyleSheet,Text,View,Button,TouchableOpacity,Dimensions,SafeAreaView,ScrollView
 } from "react-native";
 import axios from 'axios';
-
+import { getAppointmentsAPI,getAcceptedAppointmentsAPI } from './helper';
 const {width,height}= Dimensions.get('window')
 
-const VisitorCard = ({item,employeeData,fromHomePage}) => {
-  const time = item.timeofvisit.split(0,9)
+const VisitorCard = ({item,employeeData,fromHomePage,setAppointments,setacceptedAppointments}) => {
 
-
+const updateAppointments = async()=>{
+const response = await getAppointmentsAPI(employeeData)
+if(response && response.data){
+  setAppointments(response.data)
+}
+}
   const acceptanddeclineAPI = async(visitorstatus)=>{
-    alert('called-api')
     try {
       const payload = {
         empname:employeeData.empname,
         visitorname : item.nameofv,
+        reasonofvisit:item.reasonofvisit,
         val:visitorstatus
+        
       }
       console.log(payload,'payload-accept-decline')
-const res = axios.post('http://192.168.43.194:3000/acceptdecline', payload)
+const res = await axios.post('http://192.168.43.139:3000/acceptdecline', payload)
 return res
     }
 catch(err)
@@ -29,16 +34,57 @@ catch(err)
     
   }
   const acceptanddecline = async(value)=>{
-   const response= await acceptanddeclineAPI(value)
-   alert(JSON.stringify(response))
-   console.log(response,'res-accept-decline')
 
+   const response= await acceptanddeclineAPI(value)
+   console.log(response.data,'res-accept-decline')
+ 
+    await updateAppointments()
   }
   const scheduleDayFinal = item.scheduleday[4]+item.scheduleday[5]+item.scheduleday[6]+item.scheduleday[7]+item.scheduleday[8]+item.scheduleday[9]+item.scheduleday[3]+item.scheduleday[0]+item.scheduleday[1]+item.scheduleday[2]
   const timeOVisitFinal = item.timeofvisit[11]+item.timeofvisit[12]+item.timeofvisit[13]+item.timeofvisit[14]+item.timeofvisit[15]
   
+
+  const doneApi=async()=>{
+ 
+    try{
+      const payload={
+        empname:employeeData.empname,
+        visitorname:item.nameofv,
+        val:'0'
+      }
+      console.log(payload,'payload-done')
+      const res = await axios.post('http://192.168.43.139:3000/done', payload)
+      return res
+    }
+    catch(err)
+    {
+      return err
+    }
+  }
+  const done=async()=>{
+   const response= await doneApi()
+       const res = await getAcceptedAppointmentsAPI(employeeData)
+      setacceptedAppointments(res.data)
+   console.log(response,'res-done')
+  }
   const renderAcceptedMeetingsData=()=>{
-    
+    return (
+      <View style={styles.cardView}>
+          
+          <Text style={styles.title}>Name: {item.nameofv} </Text>
+         <Text style={styles.description}>Reason of Visit : {item.reasonofvisit}</Text>
+         <View style = {{flexDirection:'row'}}>
+          <Text style={styles.description}>Date:{scheduleDayFinal }</Text>
+          <Text style={styles.description}>Time(24 Hrs format):{timeOVisitFinal }</Text>
+          </View>
+          <View style = {{ flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+           <TouchableOpacity style = {styles.button} onPress={done}>
+          <Text style={styles.buttonTextAccept}>Done</Text>
+          </TouchableOpacity>
+          </View>
+      
+        </View>
+          )
   }
   
   const renderHomePagedata=()=>{
@@ -48,8 +94,8 @@ catch(err)
     <Text style={styles.title}>Meeting Requested by {item.nameofv} </Text>
    <Text style={styles.description}>Reason of Visit : {item.reasonofvisit}</Text>
    <View style = {{flexDirection:'row'}}>
-    <Text style={styles.description}>{scheduleDayFinal }</Text>
-    <Text style={styles.description}>{timeOVisitFinal }</Text>
+    <Text style={styles.description}>Date:{scheduleDayFinal }</Text>
+    <Text style={styles.description}>Time(24 Hrs format):{timeOVisitFinal }</Text>
     </View>
     <View style = {{ flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
      <TouchableOpacity style = {styles.button} onPress={()=>acceptanddecline('1')}>

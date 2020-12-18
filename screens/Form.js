@@ -34,7 +34,7 @@ export default function Form(props)
                'password': password
             }
             try {
-                const res = await axios.post('http://192.168.43.194:3000/login',payload)
+                const res = await axios.post('http://192.168.43.139:3000/login',payload)
                
                 return res
             }
@@ -57,7 +57,7 @@ export default function Form(props)
         {
             const response=await loginAPi()
             console.log(response.data)
-            const isSuccess = get(response, 'data.isSuccess','');
+            const isSuccess = get(response, 'data.succes','');
             if(isSuccess){
              navigation.navigate("HomeScreen",{
                  empdata:response.data

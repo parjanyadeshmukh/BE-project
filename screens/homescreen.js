@@ -3,13 +3,13 @@ import{
   StyleSheet,Text,View,Button,ScrollView,FlatList, ActionSheetIOS
 } from "react-native";
 import 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useIsFocused } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/AntDesign';
 import VisitorCard  from "./VisitorCard";
 // import newAPI from './fetchapi';
 import { useRoute } from '@react-navigation/native';
-import {setUserDetailsInStorage} from './helper';
+import {setUserDetailsInStorage , getAppointmentsAPI} from './helper';
 import axios from 'axios';
 
 
@@ -17,11 +17,12 @@ const HomeScreen=()=>{
   const navigation = useNavigation()
   const route = useRoute()
   const [appointments,setAppointments] = useState([])
+  const isFocused = useIsFocused()
   const {empdata}=route.params
   useEffect(()=> {
          setUser()
          getAppointments()
-      },[empdata.empid])
+      },[empdata.empid,isFocused])
 
       const setUser=async()=>{
         const stringifiedData=JSON.stringify(empdata)
@@ -29,25 +30,16 @@ const HomeScreen=()=>{
         
       }
 
-      const getAppointmentsAPI=async()=>{
-        try {
-          const payload = {
-            empid:empdata.empid
-          }
-  const res = axios.post('http://192.168.43.194:3000/getappointments', payload)
-return res
-        }
-    catch(err)
-    {
-      return err
-    }
-
-      }
+     
 
       const getAppointments = async()=>{
        
-        const response = await getAppointmentsAPI()
-        setAppointments(response.data)
+        const response = await getAppointmentsAPI(empdata)
+        if(response && response.data)
+        {
+          setAppointments(response.data)
+        }
+       
  console.log(response.data,'res-get-appointments')
       }
     
@@ -72,11 +64,13 @@ return res
             <FlatList data={appointments}
             keyExtractor={(item,index) => 'key' + index }
             renderItem = {({item}) => {
-              return <VisitorCard item ={item} employeeData = {empdata} fromHomePage={true} />
+              return <VisitorCard item ={item} employeeData = {empdata} fromHomePage={true} setAppointments={setAppointments}/>
             }}
             /> : 
-            <Text>No meeting requests</Text>}
-  
+          
+
+            <Text style={styles.text2}>No meeting requests</Text>}
+            
   
       </View>
     );
@@ -119,22 +113,11 @@ return res
         // marginHorizontal: 10,
       },
       text2:{
-        fontSize:22,
-        paddingBottom:15,
-        paddingTop:20,
-        fontWeight:'bold',
-        // width:400,
-        textAlign:"center",
-        // fontFamily:"sans-serif-light",
-        color :"#fffff4",
-        backgroundColor:'#455a64',
-        borderWidth:5,
-        borderLeftWidth:0,
-        borderRightWidth:0,
-        borderBottomColor:"#fffff4",
-        borderTopColor:"#fffff4",
-       
-      },
+        color:'white',
+        textAlign:'center',
+        fontSize:24
+
+      }
     }
   );
 

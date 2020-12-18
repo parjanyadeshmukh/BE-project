@@ -15,7 +15,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import screenNames from './screenNames';
 import {getUserDetails,clearAsyncStorage} from './helper';
-
+import axios from 'axios';
 
 
 export function DrawerContent (props){
@@ -31,8 +31,29 @@ export function DrawerContent (props){
         
         
     }
-    const handleLogout =()=>{
-      navigation.navigate('auth')
+    const handleLogoutAPI = async()=>{
+        const payload={
+            empid:data.empid
+        }
+        try {
+            const res = await axios.post('http://192.168.43.139:3000/logout',payload)
+           
+            return res
+        }
+        catch(err){
+            return err
+        }
+
+    }
+    const handleLogout =async()=>{
+        const response = await handleLogoutAPI()
+        console.log(response.data,'response-handle-logout')
+        if(response && response.data && response.data.succes )
+        {
+  navigation.navigate('Home page')
+        }
+    
+    //   navigation.navigate('auth')
     }
     return(
         <View style={{flex:1}}>

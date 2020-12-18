@@ -33,7 +33,7 @@ export default function Formsignup(props)
         }
        
         try{
-         const res=await axios.post("http://192.168.43.194:3000/signup",payload)
+         const res=await axios.post("http://192.168.43.139:3000/signup",payload)
             // console.log(res.status,'res')
            return res
         }
