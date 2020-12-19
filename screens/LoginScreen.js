@@ -27,7 +27,7 @@ const HomeScreenLogin = ({navigation}) =>
         <View style = {{flexDirection:'row', marginTop:22}}>
         <Text style = {styles.text}>Don't have an account ?</Text>
           <TouchableOpacity onPress={signup}>
-<Text style = {styles.text}>Sign up </Text>
+<Text style = {styles.text1}>Sign up </Text>
           </TouchableOpacity>
         </View>
        </View>
@@ -79,6 +79,10 @@ const HomeScreenLogin = ({navigation}) =>
     },
     text:{
       color:'white',
+    },
+    text1:{
+      color:'#f9f7cf',
+      paddingHorizontal:3
     }
   });
 

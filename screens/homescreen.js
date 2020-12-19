@@ -1,13 +1,12 @@
 import React,{useState,useEffect} from "react";
 import{
-  StyleSheet,Text,View,Button,ScrollView,FlatList, ActionSheetIOS
+  StyleSheet,Text,View,FlatList
 } from "react-native";
 import 'react-native-gesture-handler';
 import { useNavigation,useIsFocused } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/AntDesign';
 import VisitorCard  from "./VisitorCard";
-// import newAPI from './fetchapi';
 import { useRoute } from '@react-navigation/native';
 import {setUserDetailsInStorage , getAppointmentsAPI} from './helper';
 import axios from 'axios';
@@ -68,8 +67,11 @@ const HomeScreen=()=>{
             }}
             /> : 
           
-
-            <Text style={styles.text2}>No meeting requests</Text>}
+            <View style = {{justifyContent:'center',alignItems:'center',flex:1}}>
+            <Icon name="deleteuser"  size={80} color={'white'} />
+            <Text style={styles.text2}>No meeting requests</Text>
+            </View>
+            }
             
   
       </View>
@@ -115,7 +117,8 @@ const HomeScreen=()=>{
       text2:{
         color:'white',
         textAlign:'center',
-        fontSize:24
+        fontSize:20,
+        padding:20
 
       }
     }

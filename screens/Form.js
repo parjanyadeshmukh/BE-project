@@ -11,7 +11,7 @@ import {
 import {emailRegex} from './helper';
 import axios from 'axios';
 import { get } from 'lodash';
-import {setUserDetailsInStorage} from './helper';
+import {setUserDetailsInStorage,BASE_URL } from './helper';
 import screenNames from './screenNames';
 
 
@@ -22,7 +22,8 @@ export default function Form(props)
     const [message,setMessage]=useState('')
     const displayMessages={
         validEmail:'Please enter a valid email address',
-        validPassword:'Password should be atleast 6 characters'
+        validPassword:'Password should be atleast 6 characters',
+        incorrectmailorPassword:'Incorrect email or password'
     }
     const {navigation}=props
     
@@ -34,7 +35,7 @@ export default function Form(props)
                'password': password
             }
             try {
-                const res = await axios.post('http://192.168.43.139:3000/login',payload)
+                const res = await axios.post(`${BASE_URL}/login`,payload)
                
                 return res
             }
@@ -56,15 +57,22 @@ export default function Form(props)
         else
         {
             const response=await loginAPi()
-            console.log(response.data)
+            // console.log(JSON.stringify(response))
+            console.log(response.data,'res-login')
             const isSuccess = get(response, 'data.succes','');
             if(isSuccess){
+               if(message) setMessage('')
              navigation.navigate("HomeScreen",{
                  empdata:response.data
              })
-                
-                
-                
+            
+             setEmail('');
+             setPassword('');
+    
+            }
+            else
+            {
+                setMessage(displayMessages.incorrectmailorPassword)
             }
         }
     }
@@ -105,6 +113,7 @@ export default function Form(props)
                       >
                     <Text style ={styles.buttontext} >Login</Text>
                 </TouchableOpacity>
+                {message? <Text style ={styles.text}>{message}</Text>:null}
                 
             </View>
          )
@@ -144,6 +153,13 @@ const styles = StyleSheet.create({
         color : '#000000',
         textAlign : 'center',
         fontWeight:'bold'
-    }
+    },
+    text:{
+            color : 'rgba(255,255,255,0.6)',
+            textAlign:'center',
+            paddingTop:8,
+            fontSize:11
+        }
+    
 });
 

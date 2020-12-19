@@ -14,7 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import screenNames from './screenNames';
-import {getUserDetails,clearAsyncStorage} from './helper';
+import {getUserDetails,clearAsyncStorage,BASE_URL } from './helper';
 import axios from 'axios';
 
 
@@ -36,7 +36,7 @@ export function DrawerContent (props){
             empid:data.empid
         }
         try {
-            const res = await axios.post('http://192.168.43.139:3000/logout',payload)
+            const res = await axios.post(`${BASE_URL}/logout`,payload)
            
             return res
         }
@@ -68,9 +68,9 @@ export function DrawerContent (props){
                    </View> */}
                    <View style={{marginLeft:15 ,flexDirection:'column'}}>
                        {/* <Title style={styles.title} >Parjanya</Title> */}
-                       {data.empname? <Title style = {styles.title}>{data.empname}</Title>:null}
+                       { data && data.empname? <Title style = {styles.title}>{data.empname}</Title>:null}
                        <Caption style={styles.caption}>Employee_Id :</Caption>
-                       {data.empid? <Caption style = {styles.caption}>{data.empid}</Caption>:null}
+                       {data && data.empid? <Caption style = {styles.caption}>{data.empid}</Caption>:null}
                    </View>
                </View>
             </View>
@@ -137,11 +137,13 @@ const styles= StyleSheet.create(
         },
         userInfoSection:{
             paddingLeft:20
+            
         },
         title:{
             fontSize:15,
             marginTop:3,
-            fontWeight:"bold",
+            fontWeight:"bold"
+           
         },
         caption:{
             fontSize:12,

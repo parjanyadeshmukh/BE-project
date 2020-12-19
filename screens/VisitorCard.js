@@ -3,7 +3,7 @@ import{
   StyleSheet,Text,View,Button,TouchableOpacity,Dimensions,SafeAreaView,ScrollView
 } from "react-native";
 import axios from 'axios';
-import { getAppointmentsAPI,getAcceptedAppointmentsAPI } from './helper';
+import { getAppointmentsAPI,getAcceptedAppointmentsAPI,BASE_URL } from './helper';
 const {width,height}= Dimensions.get('window')
 
 const VisitorCard = ({item,employeeData,fromHomePage,setAppointments,setacceptedAppointments}) => {
@@ -24,7 +24,7 @@ if(response && response.data){
         
       }
       console.log(payload,'payload-accept-decline')
-const res = await axios.post('http://192.168.43.139:3000/acceptdecline', payload)
+const res = await axios.post(`${BASE_URL}/acceptdecline`, payload)
 return res
     }
 catch(err)
@@ -53,7 +53,7 @@ catch(err)
         val:'0'
       }
       console.log(payload,'payload-done')
-      const res = await axios.post('http://192.168.43.139:3000/done', payload)
+      const res = await axios.post(`${BASE_URL}/done`, payload)
       return res
     }
     catch(err)

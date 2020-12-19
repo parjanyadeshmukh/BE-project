@@ -41,52 +41,6 @@ const Drawer=createDrawerNavigator();
 const AuthStack=createStackNavigator();
 
 
-// const getStackscreens=(empdata)=> {
-//   if(isEmpty(empdata)){
-//     return(
-
-    
-//       <Stack.Screen name="Auth" component={AuthStackScreen} />
-//   )}
-//   else{
-//     return(
-//     <Stack.Screen name= {screenNames.HOME} component={HomeStackScreen} />
-//     )}
- 
-// }
-
-const AuthStackScreen =()=>{
-  return(
-  <AuthStack.Navigator screenOptions={{headerShown:false}}>
-    <AuthStack.Screen name="Home page" component={HomeScreenLogin} />
-      <AuthStack.Screen name="Sign up" component={SignupScreen} />
-      {/* <AuthStack.Screen name="HomeScreen" component={HomeScreen} /> */}
-      <AuthStack.Screen name={screenNames.HOME} component={HomeStackScreen} />
-  </AuthStack.Navigator>
-)}
-
- 
-
-// const HomeStackScreen=({navigation})=>(
-//   <Drawer.Navigator drawerContent ={props => <DrawerContent { ...props} />} >
-// <Drawer.Screen name="HomeScreen" component={HomeScreen} options={{ headerLeft:()=>(
-//         <Icon.Button name="ios-menu" size={25}
-//             backgroundColor="#455a64" onPress={() => {
-//         return navigation.openDrawer();
-//         }}>        
-//         </Icon.Button>
-//     )
-//      }} />
-//       <Drawer.Screen name= {screenNames.MEETING_BOOKMARKS} component={BookmarkScreen} />
-//        <Drawer.Screen name={screenNames.SCHEDULE_MEETINGS} component={MeetingscheduleScreen} />
-//        <Drawer.Screen name="auth" component={AuthStackScreen} />
-     
-//   </Drawer.Navigator>
-// )
-
-
-
-
 
 const App=()=>{
  return(
@@ -99,18 +53,10 @@ const App=()=>{
      />
       <Drawer.Screen name= {screenNames.MEETING_BOOKMARKS} component={BookmarkScreen} />
        <Drawer.Screen name={screenNames.SCHEDULE_MEETINGS} component={MeetingscheduleScreen} />
-       
-       {/* <Drawer.Screen name="auth" component={AuthStackScreen} /> */}
+      
      
   </Drawer.Navigator>
-        {/* <Stack.Navigator screenOptions={{headerShown:false}}  >
-        <Stack.Screen name = "auth" component={AuthStackScreen}/>
-        <Stack.Screen name = {screenNames.HOME} component={HomeStackScreen}/>
-
-      
-         
-           
-         </Stack.Navigator> */}
+        
        </NavigationContainer>
 
   )

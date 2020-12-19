@@ -29,7 +29,7 @@ export const getAppointmentsAPI=async(empdata)=>{
       const payload = {
         empid:empdata.empid
       }
-const res = axios.post('http://192.168.43.139:3000/getappointments', payload)
+const res = axios.post(`${BASE_URL}/getappointments`, payload)
 return res
     }
 catch(err)
@@ -46,7 +46,7 @@ catch(err)
       empid:userData.empid
     }
     console.log(payload,'payload')
-  const res=axios.post('http://192.168.43.139:3000/acceptedappointments', payload)
+  const res=axios.post(`${BASE_URL}/acceptedappointments`, payload)
   return res
   }
   catch(err)
@@ -55,3 +55,4 @@ catch(err)
   }
   
 }
+export const BASE_URL = 'http://192.168.43.139:3000'

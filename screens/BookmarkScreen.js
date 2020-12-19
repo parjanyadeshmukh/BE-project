@@ -11,17 +11,6 @@ import VisitorCard  from "./VisitorCard";
 
 const {width,height}= Dimensions.get('window')
 
-// function FlatButton({text,onPress}){
-//   return(
-//     <TouchableOpacity onPress={onPress}>
-//       <View style={styles.button}>
-//         <Text style={styles.buttonText}>{text}</Text>
-//       </View>
-//     </TouchableOpacity>
-//   )
-// }
-
-
 
 
 const BookmarkScreen=()=>
@@ -64,7 +53,10 @@ const getAcceptedAppointments=async()=>{
          return <VisitorCard item ={item}  fromHomePage={false} employeeData={userData} setacceptedAppointments={setacceptedAppointments} />
        }}
        /> : 
-       <Text style={styles.text2}>No meetings confirmed </Text>}
+       <View style = {{justifyContent:'center',alignItems:'center',flex:1}}>
+       <Icon name="exception1"  size={80} color={'white'} />
+       <Text style={styles.text2}>No meetings confirmed </Text>
+       </View>}
       </View>
     )
 };
@@ -81,7 +73,8 @@ const styles=StyleSheet.create({
     text2:{
       color:'white',
       textAlign:'center',
-      fontSize:24
+      fontSize:20,
+      padding:20
 
     }
     

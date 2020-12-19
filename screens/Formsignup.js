@@ -9,7 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-
+import {BASE_URL } from './helper';
+import {emailRegex} from './helper';
 
 export default function Formsignup(props)
 {
@@ -17,13 +18,14 @@ export default function Formsignup(props)
     const[email,setEmail]=useState('');
     const[password,setPassword]=useState('');
     const[reenterpassword,setReenterpassword]=useState('');
-    
+    const [message,setMessage] = useState('')
     const displaymessages={
         success:'Sign-Up successful',
         failure:'You are already a user',
-        passwordmismatch:'Passwords do not match'
+        passwordmismatch:'Passwords do not match or password must be 6 characters',
+        validEmail:'Please enter a valid email address',
     } 
-    const{setMessage}=props
+    
     const signUpApi=async()=>{
         const payload={
             'name':name,
@@ -33,7 +35,7 @@ export default function Formsignup(props)
         }
        
         try{
-         const res=await axios.post("http://192.168.43.139:3000/signup",payload)
+         const res=await axios.post(`${BASE_URL}/signup`,payload)
             // console.log(res.status,'res')
            return res
         }
@@ -43,24 +45,33 @@ export default function Formsignup(props)
 
     }
     const signUp=async()=>{
-        if (password===reenterpassword){
+        
+        if ((password===reenterpassword) && password.length>6 ){
 
-       
-        const response=await signUpApi()
-        if(response.status===200)
-           {
-               setMessage(displaymessages.success)
-               setName('');
-               setEmail('');
-               setPassword('');
-               setReenterpassword('');
-           }
-           else{
-               
-               setMessage(displaymessages.failure)
-           }
+            if(!emailRegex.test(email))
+            {
+                setMessage(displaymessages.validEmail)
+            }
+            else
+            {
+                const response=await signUpApi()
+                if(response.status===200)
+                   {
+                       setMessage(displaymessages.success)
+                       setName('');
+                       setEmail('');
+                       setPassword('');
+                       setReenterpassword('');
+                   }
+                   else{
+                       
+                       setMessage(displaymessages.failure)
+                   }
+            }
+        
         }
         else{
+            
             setMessage(displaymessages.passwordmismatch)
         }
 
@@ -113,7 +124,7 @@ export default function Formsignup(props)
                  >
                     <Text style ={styles.buttontext}>Signup</Text>
                 </TouchableOpacity>
-                
+                {message?<Text style ={styles.text}>{message}</Text>:null}
 
             </View>
         )
@@ -152,5 +163,11 @@ const styles = StyleSheet.create({
         fontWeight : 'bold',
         color : 'black',
         textAlign : 'center'
+    },
+    text:{
+        color : 'rgba(255,255,255,0.6)',
+        textAlign:'center',
+        paddingTop:8,
+        fontSize:11
     }
 });

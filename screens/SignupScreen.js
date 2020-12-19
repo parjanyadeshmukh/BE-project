@@ -24,10 +24,6 @@ const SignupScreen = ({navigation}) =>
             setMessage={setMessage}
         />
 
-         {/* <StatusBar
-          backgroundColor="#1c313a" 
-          barStyle="light-content"
-         /> */}
          <View style = {{flexDirection:'row', marginTop:22}}></View>
          <View style = {styles.signupTextContent}>
          {message?<Text style={styles.signuptext}>{message}</Text>:null}
@@ -72,16 +68,16 @@ const SignupScreen = ({navigation}) =>
     },
   
     signuptext : {
-      fontSize : 13,
+      fontSize : 15,
       color : 'rgba(255,255,255,0.6)',
       alignItems: 'center'
     },
   
     signupbutton : {
       color : '#ffffff',
-      fontSize : 13,
+      fontSize : 15,
      
-    //  padding:10
+   
     }
   
   });
