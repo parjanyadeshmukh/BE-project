@@ -1,21 +1,21 @@
-// ...
-import { combineReducers } from 'redux';
+// // ...
+// import { combineReducers } from 'redux';
 
-const INITIAL_STATE = {
- userData={}
-};
-const employeeReducer = (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-      case 'SAVE USER':
+// const INITIAL_STATE = {
+//  userData={}
+// };
+// const employeeReducer = (state = INITIAL_STATE, action) => {
+//     switch (action.type) {
+//       case 'SAVE USER':
   
-        return {userData:};
+//         return {userData:};
   
-      default:
-        return state
-    }
-  };
-  export default combineReducers({
-    employee: employeeReducer
-  });
+//       default:
+//         return state
+//     }
+//   };
+//   export default combineReducers({
+//     employee: employeeReducer
+//   });
   
-  // ...
+//   // ...
